@@ -1,0 +1,21 @@
+services:
+  fullstack:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    volumes:
+      - ./:/usr/src/app
+      - /usr/src/app/node_modules
+    env_file:
+      - ./.env
+    ports:
+      - "${APP_PORT_EXT}:${APP_PORT}"
+    environment:
+      - NODE_ENV=development
+    command: npm run dev
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    external: true
